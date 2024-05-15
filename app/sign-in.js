@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { Text, View, StyleSheet, Pressable } from 'react-native';
-import { useSession } from '../ctx';
+import { useSession } from '../store/auth-context';
 import { useEffect, useState } from 'react';
 import CustomButton from '../components/CustomButton/CustomButton';
 import CustomInput from '../components/CustomInput/CustomInput';

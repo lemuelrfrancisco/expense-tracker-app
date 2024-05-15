@@ -4,7 +4,7 @@ import CustomButton from '../components/CustomButton/CustomButton';
 import CustomInput from '../components/CustomInput/CustomInput';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { useSession } from '../ctx';
+import { useSession } from '../store/auth-context';
 
 export default function SignUp() {
   const { signUp, error } = useSession();
