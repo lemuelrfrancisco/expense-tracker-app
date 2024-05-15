@@ -12,8 +12,12 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "store/auth-context.tsx",
-    "app/(app)/index.js",
-    "app/_layout.js"
+    "app/(app)/(tabs)/index.js",
+    "app/_layout.js",
+    "app/(app)/_layout.js",
+    "app/(app)/+html.tsx",
+    "app/(app)/+not-found.tsx",
+    "app/(app)/(tabs)/_layout.js"
   ]
 }
 
