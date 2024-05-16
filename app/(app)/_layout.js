@@ -2,6 +2,7 @@ import { Redirect, Stack } from 'expo-router';
 import { Text } from 'react-native';
 import { useSession } from '../../store/auth-context';
 import { StatusBar } from 'expo-status-bar';
+import IconButton from '../../components/UI/IconButton';
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
@@ -34,9 +35,16 @@ export default function AppLayout() {
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
+            headerRight: ({ tintColor }) => (
+              <IconButton
+                icon='add'
+                size={24}
+                color={tintColor}
+                onPress={() => {}}
+              />
+            ),
           }}
         />
-        {/* <Stack.Screen name='+not-found' /> */}
       </Stack>
     </>
   );

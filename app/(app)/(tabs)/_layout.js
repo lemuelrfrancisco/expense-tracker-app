@@ -4,6 +4,7 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -14,11 +15,13 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         headerStyle: { backgroundColor: 'dodgerblue' },
-        headerTintColor: 'white',
-        tabBarStyle: { backgroundColor: 'white' },
-        tabBarActiveTintColor: 'dodgerblue',
-        tabBarInactiveTintColor: 'white',
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'black',
         tabBarInactiveBackgroundColor: 'dodgerblue',
+        tabBarStyle: {
+          backgroundColor: 'dodgerblue',
+          bottom: 0,
+        },
       }}
     >
       <Tabs.Screen

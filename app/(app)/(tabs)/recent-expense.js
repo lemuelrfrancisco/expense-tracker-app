@@ -1,12 +1,27 @@
-import { Text, View } from 'react-native';
-
-import { useSession } from '../../../store/auth-context';
+import { View, StyleSheet } from 'react-native';
+import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
 
 export default function RecentExpenses() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Recent Expense Page</Text>
+    <View style={styles.container}>
+      <ExpensesOutput expensesPeriod={'Last 7 Days'} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+    backgroundColor: 'white',
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 16,
+    textAlign: 'center',
+    marginTop: 32,
+  },
+});
 
