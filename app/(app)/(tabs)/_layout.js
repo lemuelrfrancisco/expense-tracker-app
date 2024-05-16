@@ -1,17 +1,15 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import IconButton from '../../../components/UI/IconButton';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
   return (
     <Tabs
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         headerStyle: { backgroundColor: 'dodgerblue' },
@@ -22,11 +20,26 @@ export default function TabLayout() {
           backgroundColor: 'dodgerblue',
           bottom: 0,
         },
-      }}
+        headerStyle: {
+          backgroundColor: 'dodgerblue',
+        },
+        headerTintColor: 'white',
+        headerRight: ({ tintColor }) => (
+          <IconButton
+            icon='add'
+            size={24}
+            color={tintColor}
+            onPress={() => {
+              navigation.navigate('manage-expenses');
+            }}
+          />
+        ),
+      })}
     >
       <Tabs.Screen
         name='index'
         options={{
+          headerShown: true,
           title: 'Manage Expenses',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={'add'} color={color} />
@@ -36,6 +49,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name='all-expenses'
         options={{
+          headerShown: true,
           title: 'All Expenses',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={'hourglass'} color={color} />

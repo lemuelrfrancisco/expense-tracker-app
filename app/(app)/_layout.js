@@ -2,7 +2,6 @@ import { Redirect, Stack } from 'expo-router';
 import { Text } from 'react-native';
 import { useSession } from '../../store/auth-context';
 import { StatusBar } from 'expo-status-bar';
-import IconButton from '../../components/UI/IconButton';
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
@@ -27,24 +26,14 @@ export default function AppLayout() {
       <Stack>
         <Stack.Screen
           name='(tabs)'
-          options={({ navigation }) => ({
+          options={() => ({
             title: 'Expense Tracker App',
-            headerShown: true,
+            headerShown: false,
             headerStyle: {
               backgroundColor: 'dodgerblue',
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
-            headerRight: ({ tintColor }) => (
-              <IconButton
-                icon='add'
-                size={24}
-                color={tintColor}
-                onPress={() => {
-                  navigation.navigate('manage-expenses');
-                }}
-              />
-            ),
           })}
         />
         <Stack.Screen name='manage-expenses' />
