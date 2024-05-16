@@ -1,22 +1,14 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { useSession } from '../../../store/auth-context';
+import { View, StyleSheet } from 'react-native';
+import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
 
-export default function Index() {
-  const { signOut } = useSession();
+export default function RecentExpenses() {
   return (
     <View style={styles.container}>
-      <Text>Manage Expenses Page</Text>
-      {/* <Text
-        onPress={() => {
-          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
-          signOut();
-        }}
-      >
-        Sign Out
-      </Text> */}
+      <ExpensesOutput expensesPeriod={'Last 7 Days'} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -27,7 +27,7 @@ export default function AppLayout() {
       <Stack>
         <Stack.Screen
           name='(tabs)'
-          options={{
+          options={({ navigation }) => ({
             title: 'Expense Tracker App',
             headerShown: true,
             headerStyle: {
@@ -40,11 +40,14 @@ export default function AppLayout() {
                 icon='add'
                 size={24}
                 color={tintColor}
-                onPress={() => {}}
+                onPress={() => {
+                  navigation.navigate('manage-expenses');
+                }}
               />
             ),
-          }}
+          })}
         />
+        <Stack.Screen name='manage-expenses' />
       </Stack>
     </>
   );

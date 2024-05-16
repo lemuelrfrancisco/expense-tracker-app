@@ -1,9 +1,15 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { getFormattedDate } from '../../app/util/date';
-
+import { useNavigation } from 'expo-router';
 function ExpenseItem({ description, date, amount }) {
+  const navigation = useNavigation();
+
+  function expensePressHandler() {
+    navigation.navigate('manage-expenses');
+  }
+
   return (
-    <Pressable>
+    <Pressable onPress={expensePressHandler}>
       <View style={styles.expenseItem}>
         <View>
           <Text style={[styles.textBase, styles.description]}>
