@@ -1,6 +1,7 @@
 import { Redirect, Stack } from 'expo-router';
 import { Text } from 'react-native';
 import { useSession } from '../../store/auth-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
@@ -20,10 +21,24 @@ export default function AppLayout() {
 
   // This layout can be deferred because it's not the root layout.
   return (
-    <Stack>
-      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-      <Stack.Screen name='+not-found' />
-    </Stack>
+    <>
+      <StatusBar style='auto' />
+      <Stack>
+        <Stack.Screen
+          name='(tabs)'
+          options={{
+            title: 'Expense Tracker App',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'dodgerblue',
+            },
+            headerTintColor: 'white',
+            headerTitleAlign: 'center',
+          }}
+        />
+        {/* <Stack.Screen name='+not-found' /> */}
+      </Stack>
+    </>
   );
 }
 

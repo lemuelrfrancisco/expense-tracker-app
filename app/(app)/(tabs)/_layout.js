@@ -13,14 +13,20 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        headerStyle: { backgroundColor: 'dodgerblue' },
+        headerTintColor: 'white',
+        tabBarStyle: { backgroundColor: 'white' },
+        tabBarActiveTintColor: 'dodgerblue',
+        tabBarInactiveTintColor: 'white',
+        tabBarInactiveBackgroundColor: 'dodgerblue',
       }}
     >
       <Tabs.Screen
         name='index'
         options={{
-          title: 'Home',
+          title: 'Manage Expenses',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'add' : 'add-outline'} color={color} />
+            <TabBarIcon name={'add'} color={color} />
           ),
         }}
       />
@@ -29,10 +35,7 @@ export default function TabLayout() {
         options={{
           title: 'All Expenses',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'hourglass' : 'hourglass-outline'}
-              color={color}
-            />
+            <TabBarIcon name={'hourglass'} color={color} />
           ),
         }}
       />
@@ -41,10 +44,7 @@ export default function TabLayout() {
         options={{
           title: 'Recent Expense',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? 'calendar' : 'calendar-outline'}
-              color={color}
-            />
+            <TabBarIcon name={'calendar'} color={color} />
           ),
         }}
       />

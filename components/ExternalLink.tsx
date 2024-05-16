@@ -8,7 +8,7 @@ type Props = Omit<ComponentProps<typeof Link>, 'href'> & { href: string };
 export function ExternalLink({ href, ...rest }: Props) {
   return (
     <Link
-      target="_blank"
+      target='_blank'
       {...rest}
       href={href}
       onPress={async (event) => {
@@ -16,9 +16,12 @@ export function ExternalLink({ href, ...rest }: Props) {
           // Prevent the default behavior of linking to the default browser on native.
           event.preventDefault();
           // Open the link in an in-app browser.
-          await openBrowserAsync(href);
+          await openBrowserAsync(href, {
+            showInRecents: true,
+          });
         }
       }}
     />
   );
 }
+
