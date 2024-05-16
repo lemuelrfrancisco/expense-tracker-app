@@ -1,11 +1,12 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { getFormattedDate } from '../../app/util/date';
-import { useNavigation } from 'expo-router';
-function ExpenseItem({ description, date, amount }) {
-  const navigation = useNavigation();
-
+import { router } from 'expo-router';
+function ExpenseItem({ id, description, date, amount }) {
   function expensePressHandler() {
-    navigation.navigate('manage-expenses');
+    router.navigate({
+      pathname: `manage-expenses`,
+      params: { expenseId: id },
+    });
   }
 
   return (

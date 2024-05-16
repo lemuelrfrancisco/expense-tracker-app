@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
 
-export default function RecentExpenses() {
+export default function Index() {
   return (
     <View style={styles.container}>
       <ExpensesOutput expensesPeriod={'Last 7 Days'} />

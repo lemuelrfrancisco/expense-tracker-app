@@ -26,7 +26,7 @@ export default function AppLayout() {
       <Stack>
         <Stack.Screen
           name='(tabs)'
-          options={() => ({
+          options={{
             title: 'Expense Tracker App',
             headerShown: false,
             headerStyle: {
@@ -34,11 +34,11 @@ export default function AppLayout() {
             },
             headerTintColor: 'white',
             headerTitleAlign: 'center',
-          })}
+          }}
         />
         <Stack.Screen
           name='manage-expenses'
-          options={() => ({
+          options={{
             title: 'Manage Expenses',
             headerShown: true,
             headerStyle: {
@@ -46,7 +46,8 @@ export default function AppLayout() {
             },
             headerTintColor: 'white',
             headerTitleAlign: 'left',
-          })}
+            presentation: 'modal',
+          }}
         />
       </Stack>
     </>
