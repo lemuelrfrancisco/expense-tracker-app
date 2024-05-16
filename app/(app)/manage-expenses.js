@@ -1,35 +1,49 @@
-import { Text, View, StyleSheet } from 'react-native';
-import { useSession } from '../../store/auth-context';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { useLayoutEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import IconButton from '@/components/UI/IconButton';
 
-export default function Index() {
-  const { signOut } = useSession();
+export default function ManageExpense() {
+  const navigation = useNavigation();
+  const editedExpenseId = useLocalSearchParams();
+  const isEditing = !!editedExpenseId.expenseId;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: isEditing ? 'Edit Expense' : 'Add Expense',
+    });
+  }, [navigation, isEditing]);
+
+  function deleteExpenseHandler() {}
+
   return (
     <View style={styles.container}>
-      <Text>Manage Expenses Page</Text>
-      {/* <Text
-        onPress={() => {
-          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
-          signOut();
-        }}
-      >
-        Sign Out
-      </Text> */}
+      {isEditing && (
+        <View style={styles.deleteContainer}>
+          <IconButton
+            icon='trash'
+            color='red'
+            size={36}
+            onPress={deleteExpenseHandler}
+          />
+        </View>
+      )}
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 0,
-    paddingTop: 0,
-    paddingBottom: 0,
-    backgroundColor: 'white',
+    padding: 24,
+    backgroundColor: 'dodgerblue',
   },
-  infoText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 32,
+  deleteContainer: {
+    marginTop: 16,
+    paddingTop: 8,
+    borderTopWidth: 2,
+    borderTopColor: 'lightblue',
+    alignItems: 'center',
   },
 });
 
