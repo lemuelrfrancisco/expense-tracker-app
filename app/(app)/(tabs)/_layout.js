@@ -40,9 +40,9 @@ export default function TabLayout() {
         name='index'
         options={{
           headerShown: true,
-          title: 'Manage Expenses',
+          title: 'Recent Expenses',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={'add'} color={color} />
+            <TabBarIcon name={'hourglass'} color={color} />
           ),
         }}
       />
@@ -51,15 +51,6 @@ export default function TabLayout() {
         options={{
           headerShown: true,
           title: 'All Expenses',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={'hourglass'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name='recent-expense'
-        options={{
-          title: 'Recent Expense',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={'calendar'} color={color} />
           ),

@@ -36,7 +36,18 @@ export default function AppLayout() {
             headerTitleAlign: 'center',
           })}
         />
-        <Stack.Screen name='manage-expenses' />
+        <Stack.Screen
+          name='manage-expenses'
+          options={() => ({
+            title: 'Manage Expenses',
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'dodgerblue',
+            },
+            headerTintColor: 'white',
+            headerTitleAlign: 'left',
+          })}
+        />
       </Stack>
     </>
   );
