@@ -1,16 +1,21 @@
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useContext, useLayoutEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import IconButton from '@/components/UI/IconButton';
 import Button from '@/components/UI/Button';
 import { ExpensesContext } from '@/store/expenses-context';
+import ExpenseForm from '../../components/ManageExpense/ExpenseForm';
 
 export default function ManageExpense() {
-  const navigation = useNavigation();
-  const editedExpenseId = useLocalSearchParams();
-  const isEditing = !!editedExpenseId.expenseId;
-
   const expensesCtx = useContext(ExpensesContext);
+
+  const navigation = useNavigation();
+  const editedExpense = useLocalSearchParams();
+  const isEditing = !!editedExpense.expenseId;
+
+  const selectedExpense = expensesCtx.expenses.find(
+    (expense) => expense.id === editedExpense.expenseId
+  );
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -18,35 +23,38 @@ export default function ManageExpense() {
     });
   }, [navigation, isEditing]);
 
+  const handleGoBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      router.navigate('/');
+    }
+  };
+
   function deleteExpenseHandler() {
-    expensesCtx.deleteExpense(editedExpenseId.expenseId);
-    navigation.goBack();
+    expensesCtx.deleteExpense(editedExpense.expenseId);
+    handleGoBack();
   }
   function cancelHandler() {
-    navigation.goBack();
+    handleGoBack();
   }
-  function confirmHandler() {
-    const DUMMY_CONFIRM_DATA = {
-      description: 'Dummy description',
-      amount: 1999.99,
-      date: new Date(),
-    };
+  function confirmHandler(data) {
     if (isEditing) {
-      expensesCtx.updateExpense(editedExpenseId.expenseId, DUMMY_CONFIRM_DATA);
+      expensesCtx.updateExpense(editedExpense.expenseId, data);
     } else {
-      expensesCtx.addExpense(DUMMY_CONFIRM_DATA);
+      expensesCtx.addExpense(data);
     }
-    navigation.goBack();
+    handleGoBack();
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.buttonContainer}>
-        <Button mode='flat' onPress={cancelHandler}>
-          Cancel
-        </Button>
-        <Button onPress={confirmHandler}>{isEditing ? 'Update' : 'Add'}</Button>
-      </View>
+      <ExpenseForm
+        submitButtonLabel={isEditing ? 'Update' : 'Add'}
+        onSubmit={confirmHandler}
+        onCancel={cancelHandler}
+        defaultValues={selectedExpense}
+      />
 
       {isEditing && (
         <View style={styles.deleteContainer}>
@@ -66,7 +74,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: 'dodgerblue',
+    backgroundColor: 'royalblue',
   },
   deleteContainer: {
     marginTop: 16,

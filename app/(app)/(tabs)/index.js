@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
 import { useContext } from 'react';
 import { ExpensesContext } from '../../../store/expenses-context';
-import { getDateMinusDays } from '../../util/date';
+import { getDateMinusDays } from '../../../util/date';
 
 export default function Index() {
   const expenseCtx = useContext(ExpensesContext);
@@ -17,6 +17,7 @@ export default function Index() {
       <ExpensesOutput
         expenses={recentExpenses}
         expensesPeriod={'Last 7 Days'}
+        fallbackText={'No expenses registered for the last 7 days.'}
       />
     </View>
   );

@@ -2,7 +2,7 @@ import { StyleSheet, View, Text, Pressable } from 'react-native';
 
 function CustomButton(props) {
   return (
-    <View style={[styles.buttonOuterContainer]}>
+    <View style={[styles.buttonOuterContainer, props.style]}>
       <Pressable
         style={({ pressed }) => [
           pressed ? styles.pressed : '',

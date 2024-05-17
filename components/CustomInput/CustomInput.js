@@ -8,6 +8,8 @@ export default function CustomInput({
   placeholder,
   secureTextEntry,
   keyboardType = 'default',
+  multiline = false,
+  numberOfLines = 3,
 }) {
   return (
     <Controller
@@ -36,6 +38,8 @@ export default function CustomInput({
               autoCapitalize='none'
               autoComplete='off'
               keyboardType={keyboardType}
+              multiline={multiline}
+              numberOfLines={multiline && numberOfLines ? numberOfLines : 3}
             />
           </View>
           {error && (

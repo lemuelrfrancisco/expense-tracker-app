@@ -7,7 +7,7 @@ export default function AllExpenses() {
   const expenseCtx = useContext(ExpensesContext);
   return (
     <View style={styles.container}>
-      <ExpensesOutput expenses={expenseCtx.expenses} expensesPeriod={'Total'} />
+      <ExpensesOutput expenses={expenseCtx.expenses} expensesPeriod={'Total'} fallbackText={"No registered expenses found."} />
     </View>
   );
 }

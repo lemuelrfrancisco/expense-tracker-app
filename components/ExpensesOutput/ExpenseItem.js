@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { getFormattedDate } from '../../app/util/date';
+import { getFormattedDate } from '../../util/date';
 import { router } from 'expo-router';
 function ExpenseItem({ id, description, date, amount }) {
   function expensePressHandler() {
