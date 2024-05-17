@@ -2,7 +2,7 @@ import { Redirect, Stack } from 'expo-router';
 import { Text } from 'react-native';
 import { useSession } from '../../store/auth-context';
 import { StatusBar } from 'expo-status-bar';
-
+import ExpensesContextProvider from '../../store/expenses-context';
 export default function AppLayout() {
   const { session, isLoading } = useSession();
 
@@ -23,33 +23,35 @@ export default function AppLayout() {
   return (
     <>
       <StatusBar style='auto' />
-      <Stack>
-        <Stack.Screen
-          name='(tabs)'
-          options={{
-            title: 'Expense Tracker App',
-            headerShown: false,
-            headerStyle: {
-              backgroundColor: 'dodgerblue',
-            },
-            headerTintColor: 'white',
-            headerTitleAlign: 'center',
-          }}
-        />
-        <Stack.Screen
-          name='manage-expenses'
-          options={{
-            title: 'Manage Expenses',
-            headerShown: true,
-            headerStyle: {
-              backgroundColor: 'dodgerblue',
-            },
-            headerTintColor: 'white',
-            headerTitleAlign: 'left',
-            presentation: 'modal',
-          }}
-        />
-      </Stack>
+      <ExpensesContextProvider>
+        <Stack>
+          <Stack.Screen
+            name='(tabs)'
+            options={{
+              title: 'Expense Tracker App',
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: 'dodgerblue',
+              },
+              headerTintColor: 'white',
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name='manage-expenses'
+            options={{
+              title: 'Manage Expenses',
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: 'dodgerblue',
+              },
+              headerTintColor: 'white',
+              headerTitleAlign: 'left',
+              presentation: 'modal',
+            }}
+          />
+        </Stack>
+      </ExpensesContextProvider>
     </>
   );
 }

@@ -1,10 +1,13 @@
 import { View, StyleSheet } from 'react-native';
 import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
+import { useContext } from 'react';
+import { ExpensesContext } from '../../../store/expenses-context';
 
 export default function AllExpenses() {
+  const expenseCtx = useContext(ExpensesContext);
   return (
     <View style={styles.container}>
-      <ExpensesOutput expensesPeriod={'Total'} />
+      <ExpensesOutput expenses={expenseCtx.expenses} expensesPeriod={'Total'} />
     </View>
   );
 }
