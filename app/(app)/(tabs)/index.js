@@ -1,17 +1,31 @@
 import { View, StyleSheet } from 'react-native';
 import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ExpensesContext } from '../../../store/expenses-context';
 import { getDateMinusDays } from '../../../util/date';
+import { getUserExpenses } from '../../api/expenseApi';
+import { useSession } from '../../../store/auth-context';
 
 export default function Index() {
+  const { session } = useSession();
+  const userSession = JSON.parse(session);
   const expenseCtx = useContext(ExpensesContext);
+
   const recentExpenses = expenseCtx.expenses.filter((expense) => {
     const today = new Date();
     const date7DaysAgo = getDateMinusDays(today, 7);
 
     return expense.date > date7DaysAgo;
   });
+
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await getUserExpenses(userSession);
+      expenseCtx.setExpenses(expenses);
+    }
+    getExpenses();
+  }, []);
+
   return (
     <View style={styles.container}>
       <ExpensesOutput

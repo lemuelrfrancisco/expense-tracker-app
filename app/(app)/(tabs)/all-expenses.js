@@ -1,13 +1,33 @@
 import { View, StyleSheet } from 'react-native';
 import ExpensesOutput from '../../../components/ExpensesOutput/ExpensesOutput';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ExpensesContext } from '../../../store/expenses-context';
+import { useSession } from '../../../store/auth-context';
+import { getUserExpenses } from '../../api/expenseApi';
 
 export default function AllExpenses() {
+  const { session } = useSession();
+  const userSession = JSON.parse(session);
+
   const expenseCtx = useContext(ExpensesContext);
+
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await getUserExpenses(userSession);
+      expenseCtx.setExpenses(expenses);
+    }
+
+    if (!expenseCtx.expenses.length) {
+      getExpenses();
+    }
+  }, []);
   return (
     <View style={styles.container}>
-      <ExpensesOutput expenses={expenseCtx.expenses} expensesPeriod={'Total'} fallbackText={"No registered expenses found."} />
+      <ExpensesOutput
+        expenses={expenseCtx.expenses}
+        expensesPeriod={'Total'}
+        fallbackText={'No registered expenses found.'}
+      />
     </View>
   );
 }

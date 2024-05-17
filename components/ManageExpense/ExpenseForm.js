@@ -51,10 +51,6 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           name='amount'
           rules={{
             required: true,
-            pattern: {
-              value: /d+/,
-              message: 'This input is number only.',
-            },
           }}
           placeholder='Amount'
           keyboardType='decimal-pad'

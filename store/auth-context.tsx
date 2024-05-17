@@ -56,6 +56,7 @@ export function SessionProvider(props: React.PropsWithChildren) {
             .post(`${authBaseUrl}signInWithPassword${key}`, {
               email,
               password,
+              returnSecureToken: true,
             })
             .then((res) => {
               setSession(JSON.stringify(res.data));

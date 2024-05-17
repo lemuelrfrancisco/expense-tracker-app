@@ -1,19 +1,28 @@
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import { useContext, useLayoutEffect } from 'react';
+import { useContext, useEffect, useLayoutEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import IconButton from '@/components/UI/IconButton';
 import Button from '@/components/UI/Button';
 import { ExpensesContext } from '@/store/expenses-context';
 import ExpenseForm from '../../components/ManageExpense/ExpenseForm';
-
+import {
+  deleteExpense,
+  getUserExpenses,
+  saveExpense,
+  updateExpense,
+} from '../api/expenseApi';
+import { useSession } from '@/store/auth-context';
 export default function ManageExpense() {
-  const expensesCtx = useContext(ExpensesContext);
+  const { session } = useSession();
+  const userSession = JSON.parse(session);
+
+  const expenseCtx = useContext(ExpensesContext);
 
   const navigation = useNavigation();
   const editedExpense = useLocalSearchParams();
   const isEditing = !!editedExpense.expenseId;
 
-  const selectedExpense = expensesCtx.expenses.find(
+  const selectedExpense = expenseCtx.expenses.find(
     (expense) => expense.id === editedExpense.expenseId
   );
 
@@ -31,18 +40,29 @@ export default function ManageExpense() {
     }
   };
 
-  function deleteExpenseHandler() {
-    expensesCtx.deleteExpense(editedExpense.expenseId);
+  async function deleteExpenseHandler() {
+    const request = await deleteExpense({
+      userSession,
+      id: editedExpense.expenseId,
+    });
+
+    expenseCtx.deleteExpense(editedExpense.expenseId);
     handleGoBack();
   }
   function cancelHandler() {
     handleGoBack();
   }
-  function confirmHandler(data) {
+  async function confirmHandler(data) {
     if (isEditing) {
-      expensesCtx.updateExpense(editedExpense.expenseId, data);
+      const request = await updateExpense({
+        userSession,
+        data,
+        id: editedExpense.expenseId,
+      });
+      expenseCtx.updateExpense(editedExpense.expenseId, data);
     } else {
-      expensesCtx.addExpense(data);
+      const request = await saveExpense({ userSession, data });
+      expenseCtx.addExpense({ ...data, id: request.data.name });
     }
     handleGoBack();
   }
