@@ -1,13 +1,16 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { useLayoutEffect } from 'react';
+import { useContext, useLayoutEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import IconButton from '@/components/UI/IconButton';
 import Button from '@/components/UI/Button';
+import { ExpensesContext } from '@/store/expenses-context';
 
 export default function ManageExpense() {
   const navigation = useNavigation();
   const editedExpenseId = useLocalSearchParams();
   const isEditing = !!editedExpenseId.expenseId;
+
+  const expensesCtx = useContext(ExpensesContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -16,12 +19,23 @@ export default function ManageExpense() {
   }, [navigation, isEditing]);
 
   function deleteExpenseHandler() {
+    expensesCtx.deleteExpense(editedExpenseId.expenseId);
     navigation.goBack();
   }
   function cancelHandler() {
     navigation.goBack();
   }
   function confirmHandler() {
+    const DUMMY_CONFIRM_DATA = {
+      description: 'Dummy description',
+      amount: 1999.99,
+      date: new Date(),
+    };
+    if (isEditing) {
+      expensesCtx.updateExpense(editedExpenseId.expenseId, DUMMY_CONFIRM_DATA);
+    } else {
+      expensesCtx.addExpense(DUMMY_CONFIRM_DATA);
+    }
     navigation.goBack();
   }
 
