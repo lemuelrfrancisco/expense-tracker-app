@@ -14,7 +14,9 @@ export default function AllExpenses() {
   useEffect(() => {
     async function getExpenses() {
       const expenses = await getUserExpenses(userSession);
-      expenseCtx.setExpenses(expenses);
+      if (expenses) {
+        expenseCtx.setExpenses(expenses);
+      }
     }
 
     if (!expenseCtx.expenses.length) {

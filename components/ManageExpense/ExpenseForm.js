@@ -13,10 +13,10 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      description: defaultValues ? defaultValues.description : '',
-      amount: defaultValues ? defaultValues.amount : '',
+      description: defaultValues?.description ? defaultValues.description : '',
+      amount: defaultValues?.amount ? defaultValues.amount.toString() : 0,
       date:
-        defaultValues && isDateValid(defaultValues.date)
+        defaultValues?.date && isDateValid(defaultValues.date)
           ? getFormattedDate(defaultValues.date)
           : '',
       // date: getFormattedDate(new Date())
@@ -33,7 +33,7 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
       return;
     }
     const expenseData = {
-      amount: +data.amount,
+      amount: +parseFloat(data.amount),
       date: new Date(data.date),
       description: data.description,
     };
@@ -61,7 +61,6 @@ function ExpenseForm({ submitButtonLabel, onCancel, onSubmit, defaultValues }) {
           name='date'
           rules={{ required: true, dateIsValid: true }}
           placeholder='YYYY-MM-DD'
-          keyboardType='decimal-pad'
         />
       </View>
       <CustomInput

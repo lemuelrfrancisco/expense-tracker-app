@@ -21,7 +21,9 @@ export default function Index() {
   useEffect(() => {
     async function getExpenses() {
       const expenses = await getUserExpenses(userSession);
-      expenseCtx.setExpenses(expenses);
+      if (expenses) {
+        expenseCtx.setExpenses(expenses);
+      }
     }
     getExpenses();
   }, []);

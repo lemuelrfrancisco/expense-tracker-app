@@ -1,3 +1,4 @@
+import { useSession } from '@/store/auth-context';
 import axios from 'axios';
 const baseUrl = 'https://test-dyci-default-rtdb.firebaseio.com/users/';
 

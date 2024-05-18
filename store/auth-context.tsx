@@ -11,6 +11,7 @@ interface AuthContextInterface {
   signIn: ({ email, password }: SignInInterface) => void;
   signUp: ({ email, password }: SignInInterface) => void;
   signOut: () => void;
+  refreshToken: (token: string) => void;
   session?: string | null;
   isLoading: boolean;
   error?: AxiosError | null;
@@ -25,6 +26,7 @@ const AuthContext = React.createContext<AuthContextInterface>({
   signIn: ({ email, password }: SignInInterface) => null,
   signUp: ({ email, password }: SignInInterface) => null,
   signOut: () => null,
+  refreshToken: (token: string) => null,
   session: null,
   isLoading: false,
   error: null,
@@ -85,6 +87,22 @@ export function SessionProvider(props: React.PropsWithChildren) {
         },
         signOut: () => {
           setSession(null);
+        },
+        refreshToken: async (token: string) => {
+          // Perform sign-in logic here
+          setError(null);
+          const request = await axios
+            .post(`${authBaseUrl}token${key}`, {
+              token,
+              grantType: 'refresh_token',
+            })
+            .then((res) => {
+              setSession(JSON.stringify(res.data));
+              router.replace('/');
+            })
+            .catch((err: AxiosError) => {
+              setError(err);
+            });
         },
         session,
         isLoading,

@@ -4,9 +4,12 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import IconButton from '../../../components/UI/IconButton';
+import { View } from 'react-native';
+import { useSession } from '@/store/auth-context';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { signOut } = useSession();
   return (
     <Tabs
       screenOptions={({ navigation }) => ({
@@ -25,14 +28,22 @@ export default function TabLayout() {
         },
         headerTintColor: 'white',
         headerRight: ({ tintColor }) => (
-          <IconButton
-            icon='add'
-            size={24}
-            color={tintColor}
-            onPress={() => {
-              navigation.navigate('manage-expenses');
-            }}
-          />
+          <View style={{ flexDirection: 'row' }}>
+            <IconButton
+              icon='add'
+              size={24}
+              color={tintColor}
+              onPress={() => {
+                navigation.navigate('manage-expenses');
+              }}
+            />
+            <IconButton
+              icon='exit-outline'
+              size={24}
+              color={tintColor}
+              onPress={() => signOut()}
+            />
+          </View> 
         ),
       })}
     >
